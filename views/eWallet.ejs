@@ -1,0 +1,44 @@
+<%- layout('layout/boilerplate.ejs') %> 
+<div class="col-3 mt-5" style="float:left;background-color: #D5D5D5;min-height: 100px;">
+    <div style="margin:5px;">
+        <p><b>My Wallet</b></p>
+    </div>
+    <div style="margin:5px;">
+        <p><i class="fa fa-rupee"></i> <%= currentUser.wallet %> </p>
+    </div>
+    <div style="margin:5px;">
+        <form action="/addMoney" method="POST" class="needs-validation" novalidate>
+            <label class="form-label" for="money">Add e-money</label>
+            <input class="form-control" name="money" id="money" type="number" min="0" max="10000" required>
+            <button class="btn btn-dark mt-2" type="submit">Add</button>
+        </form>
+    </div>
+</div>
+<div class="col-8 mt-5" style="float:right;background-color: #D5D5D5;min-height: 50px;">
+    <table  style="border:1px solid white;border-collapse: collapse;width: 100%;">
+        <tr style="height: 50px;">
+          <th style="border:2px solid white;border-collapse: collapse;padding:10px">Amount</th>
+          <th style="border:2px solid white;border-collapse: collapse;padding:10px">To / From</th>
+          <th style="border:2px solid white;border-collapse: collapse;padding:10px">Time</th>
+        </tr>
+        <% for(let transaction of user.transaction){ %>
+          <tr>
+            <% if(transaction.self===true){ %> 
+              <td style="border:2px solid white;border-collapse: collapse;padding:5px">+<%= transaction.price %></td>
+              <td style="border:2px solid white;border-collapse: collapse;padding:5px">@self</td>
+              <td style="border:2px solid white;border-collapse: collapse;padding:5px"><%= transaction.time %></td>
+            <% } %>  
+            <% if(transaction.seller!=undefined &&transaction.seller._id.equals(user._id)){ %> 
+              <td style="border:2px solid white;border-collapse: collapse;padding:5px">+<%= transaction.price %></td>
+              <td style="border:2px solid white;border-collapse: collapse;padding:5px">@<%= transaction.buyer.username %></td>
+              <td style="border:2px solid white;border-collapse: collapse;padding:5px"><%= transaction.time %></td>
+            <% } %>
+            <% if(transaction.buyer!=undefined &&transaction.buyer._id.equals(user._id)){ %> 
+              <td style="border:2px solid white;border-collapse: collapse;padding:5px">-<%= transaction.price %></td>
+              <td style="border:2px solid white;border-collapse: collapse;padding:5px">@<%= transaction.seller.username %></td>
+              <td style="border:2px solid white;border-collapse: collapse;padding:5px"><%= transaction.time %></td>
+            <% } %>  
+          </tr>
+        <% } %> 
+      </table>
+</div>

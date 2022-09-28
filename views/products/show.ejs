@@ -1,0 +1,84 @@
+<% layout('layout/boilerplate')%>
+
+<div class="offset-3 mb-3 mt-3">
+    <p><b>Product Detail</b></p>
+</div>
+<div class="offset-1 col-4 mb-3" style="float:left;border:black 2px solid">
+    <div id="booksCarousel" class="carousel slide" data-bs-interval="false">
+        <div class="carousel-inner">
+          <% if(book.images.length==0){ %>
+            <img src="/no_img.jpg" class="d-block w-100" style="max-height: 400px;"alt="...">
+          <% } %>  
+          <% book.images.forEach((img,i)=>{%> 
+          <div class="carousel-item <%= i===0?'active':'' %>">
+            <img src="<%= img.url %>" class="d-block w-100" style="max-height: 400px;" alt="...">
+          </div>
+          <% }) %> 
+        </div>
+        <% if(book.images.length>1){ %> 
+        <button class="carousel-control-prev" type="button" data-bs-target="#booksCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#booksCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+        <% } %> 
+      </div>
+</div>
+<div style="float:right;" class="col-5">
+    <div class="showCard mb-3">
+      <% if(book.status=="available"){ %> 
+        <a class="btn btn-sm" aria-disabled="true" style="outline:1px solid white;outline-offset:-2px;background-color: rgb(175, 253, 18);pointer-events: none;margin-bottom: 3px;"><%= book.status %></a>
+      <% }else{ %> 
+        <a class="btn btn-sm" aria-disabled="true" style="outline:1px solid white;outline-offset:-2px;background-color: rgb(253, 18, 18);pointer-events: none;margin-bottom: 3px;"><%= book.status %></a>
+      <% } %> 
+      <h5 style="color: black;"><b><%= book.title %></b></h5>
+      <p style="color:rgb(0, 0, 0);size:3rem"><b>Author-</b> <%= book.author %></p>
+      <p style="color:black"><b>Language-</b> <%= book.language %></p>
+      <p style="color:black"><b>Pages-</b> <%= book.pages %> </p>
+      <p style="color:black"><b>Genre-</b> <%= book.category %> </p>
+      <p style="color:black"><b>PRICE-</b> <i class="fa fa-rupee"></i> <%= book.price %> </p>
+      <% if( currentUser && book.owner.equals(currentUser._id) && book.status=='available'){ %> 
+      <a href="/products/<%= book._id %>/edit" class="btn btn-primary mb-3">edit product</a>
+      <form action="/products/<%= book._id %>?_method=DELETE" method="POST">
+      <button class="btn btn-primary btn-danger">delete product</button>
+      </form>
+      <% } %> 
+      <% if(book.status==='available'&& currentUser && !(book.owner.equals(currentUser._id))){ %> 
+      <form action="/products/<%= book._id %>/transaction" method="POST">
+        <button class="btn btn-success" >BUY</button>
+      </form>
+      <% } %> 
+      <div class="offset-8">
+        <h6 style="color:rgb(0, 0, 0)">Owner ~@<%= book.owner.username %> </h6>
+      </div>
+    </div>
+
+ <% if(book.comments.length){ %>
+  <div class="mb-3" style="text-align: center;">
+      <h3>Comments</h3>
+  </div>
+  <% for(let comment of book.comments){ %> 
+      <div class="mb-3" style="background-color:#EEEBDD;padding:10px;">
+      <p class="text-muted"><%= comment.owner.username %></p>
+      <p><%= comment.text %></p>
+      <% if(currentUser && comment.owner.equals(currentUser._id)){ %> 
+      <form action="/products/<%= book._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+          <button class="btn btn-danger btn-sm">Delete</button>
+      </form>
+      <% } %> 
+      </div>
+  <% } %> 
+<% } %> 
+    
+    <% if(currentUser){ %> 
+      <form class="needs-validation mb-3" action="/products/<%= book._id %>/comments" class="mt-5" method="POST" novalidate>
+        <label class="form-label" for="comment">Ask any query...</label>
+        <textarea class="form-control row-2" id="comment" name="text" required></textarea>
+        <button class="btn btn-primary btn-success mt-3">Submit</button>
+      </form>
+    <% } %> 
+
+</div>

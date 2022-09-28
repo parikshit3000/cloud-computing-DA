@@ -1,0 +1,71 @@
+<%- layout('layout/boilerplate') %> 
+<div class="mb-3 mt-3 offset-3 col-6">
+    <p><b>Create a new product to sell</b></p>
+</div>
+<form class="needs-validation offset-3 col-6 mb-3 mt-3" action="/products" method="POST" novalidate enctype="multipart/form-data">
+    <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input id="title" name="product[title]" type="text"  placeholder="title" class="form-control" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please provide a title.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="author">Author</label>
+        <input id="author" name="product[author]" type="text" placeholder="author" class="form-control" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please provide author name.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="img" >Upload an image</label>
+        <input type="file" id="img" name="image" class="form-control" multiple>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="category" >Select Category</label>
+        <select class="form-control" name="product[category]" id="category">
+            <% for(category of categories){ %> 
+                <option value="<%= category %>"><%= category %></option>
+            <% } %> 
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="language">Language</label>
+        <input id="language" name="product[language]" type="text"  placeholder="language" class="form-control" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please specify the language.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="pages">Pages</label>
+        <input id="pages" name="product[pages]" type="number" class="form-control" placeholder="-" min="0" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please specify the number of pages.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="price">Price</label>
+        <input id="price" name="product[price]" type="number" class="form-control" placeholder="-" min="0" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please provide the price.
+        </div>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary btn-success">Create post</button>
+    </div>
+</form>

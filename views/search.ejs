@@ -1,0 +1,35 @@
+<%- layout('layout/boilerplate') %> 
+
+<form class="needs-validation offset-3 col-6 mb-3 mt-3"  action="/products/search" method="GET" no-validate>
+    <div class="mb-3">
+        <p><b>Filter- </b></p>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input class="form-control" type="text" name="title" id="title">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="author">Author</label>
+        <input class="form-control" type="text" name="author" id="author">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="category">Category</label>
+        <select class="form-control" name="category" id="category">
+                <option value="">-</option>
+            <% categories.forEach((category)=>{ %>
+                <option value="<%= category %>"><%= category %></option>
+            <% })  %>  
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="status">Status</label>
+        <select class="form-control" name="status" id="status">
+            <option value="">-</option>
+            <option value="available">available</option>
+            <option value="sold">sold</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Go</button>
+    </div>
+</form>

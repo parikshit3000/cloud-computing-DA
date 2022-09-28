@@ -1,0 +1,35 @@
+<%- layout('layout/boilerplate.ejs') %> 
+
+    <form action="/register" method="POST" class="needs-validation offset-3 col-6 mb-3 mt-3" novalidate>
+        <div class="mb-3 mt-3">
+            <p><b>Sign Up</b></p>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="username">Username</label>
+            <input class="form-control" type="text" id="username" name="username" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-control" type="email" id="email" name="email" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="password">Password</label>
+            <input class="form-control" type="password" id="password" name="password" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <button class="mt-3 btn btn-primary btn-success" type="submit">Submit</button>
+        </div>
+    </form>
+    <br>
+    <div class="mb-3 offset-3 col-6">
+        <a class="btn btn-secondary" href="/login">Already have an account - sign in</a>
+    </div>

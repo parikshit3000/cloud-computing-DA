@@ -1,0 +1,72 @@
+<%- layout('layout/boilerplate') %> 
+<p class="mt-3"><b>Edit product post</b></p>
+<form class="needs-validation" action="/products/<%= book._id %>?_method=PUT" method="POST" novalidate enctype="multipart/form-data">
+    <div class="mb-3 offset-3 col-6">
+        <label class="form-label" for="title">Title</label>
+        <input id="title" name="product[title]" type="text" class="form-control" value="<%= book.title %>" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please provide a title.
+        </div>
+    </div>
+    <div class="mb-3 offset-3 col-6">
+        <label class="form-label" for="author">Author</label>
+        <input id="author" name="product[author]" type="text" class="form-control"value="<%= book.author %>" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please provide author name.
+        </div>
+    </div>
+    <div class="mb-3 offset-3 col-6">
+        <label class="form-label" for="img" >Add images</label>
+        <input type="file" id="img" name="image" class="form-control" multiple>
+    </div>
+    <div class="mb-3 offset-3 col-6">
+        <label class="form-label" for="category" >Select Category</label>
+        <select class="form-control" name="product[category]" id="category">
+            <% for(category of categories){ %> 
+                <option value="<%= category %>" <%= (book.category===category)?'selected':'' %> ><%= category %></option>
+            <% } %> 
+        </select>
+    </div>
+    <div class="mb-3 offset-3 col-6">
+        <label class="form-label" for="language">Language</label>
+        <input id="language" name="product[language]" type="text" class="form-control" value="<%= book.language %>" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please specify the language.
+        </div>
+    </div>
+    <div class="mb-3 offset-3 col-6">
+        <label class="form-label" for="pages">Pages</label>
+        <input id="pages" name="product[pages]" type="number" class="form-control" value="<%= book.pages %>" min="0" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please specify number of pages.
+        </div>
+    </div>
+    <div class="mb-3 offset-3 col-6">
+        <label class="form-label" for="price">Price</label>
+        <input id="price" name="product[price]" type="number" class="form-control" value="<%= book.price %>" min="0"required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+        <div class="invalid-feedback">
+            Please specify the price.
+        </div>
+    </div>
+    <div class="mb-3 offset-3">
+        <button class="btn btn-primary btn-success">Save</button>
+    </div>
+    <div class="mb-3 offset-3">
+        <a class="btn btn-primary bg-light text-dark" href="/products/<%= book._id %> ">Go back to product</a>
+    </div>
+</form>

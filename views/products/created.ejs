@@ -1,0 +1,33 @@
+<% layout('layout/boilerplate')%>
+<p class="mt-3"><b>Created Products</b></p>
+<% if(books.length==0){ %>
+    <p class="mt-3">No products created yet!</p>
+<% } %>  
+<div class="card-wrap">
+    <% for(let book of books){ %> 
+      <div class="card mb-4 mr-4">
+        <% if(book.images.length!=0){ %> 
+        <img src="<%= book.images[0].url %>" class="card-img-top" style="height: 150px;"alt="...">
+        <% }else{ %>
+        <img src="/no_img.jpg" class="card-img-top" style="height: 150px;"alt="...">
+        <% } %>  
+        <div class="card-body">
+          <a class="btn btn-sm btn-dark" aria-disabled="true" style="outline:1px solid white;outline-offset:-2px;pointer-events: none;"><%= book.category %></a>
+          <% if(book.status=="available"){ %> 
+          <a class="btn btn-sm" aria-disabled="true" style="outline:1px solid white;outline-offset:-2px;background-color: rgb(175, 253, 18);pointer-events: none;"><%= book.status %></a>
+          <% }else{ %> 
+          <a class="btn btn-sm" aria-disabled="true" style="outline:1px solid white;outline-offset:-2px;background-color: rgb(253, 18, 18);pointer-events: none;"><%= book.status %></a>
+          <% } %> 
+          <h5 class="card-title"><%= book.title %></h5>
+          <!--<p class="card-text">Language- <%= book.language %></p>
+          <p class="card-text">Pages- <%= book.pages %> </p> -->
+          <p class="card-text">PRICE- <%= book.price %> </p>
+          <a href="/products/<%= book._id %> " class="btn btn-primary">See details</a>
+        </div>
+      </div>
+  <% } %> 
+  </div>
+
+  <div style="position: fixed;bottom:10px;right:10px">
+    <a href="#nav-bar" style="color: #D5D5D5;"><i class="fas fa-arrow-circle-up fa-3x"></i></a>
+  </div>
